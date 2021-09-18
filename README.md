@@ -13,11 +13,12 @@ The following **required** functionality is completed:
 * [X] User can **click the answer** 
 * [X] User can **get a result messages**
 * [X] User can **see next question**
+* [X] User can **rotate the screen** and the data will be saved
 
 The following **optional** features are implemented:
 
-* [ ] User can **see previous question**
-* [ ] User can **tap the question itself to move to next question**
+* [X] User can **see previous question**
+* [X] User can **tap the question itself to move to next question**
 
 The following **additional** features are implemented:
 
