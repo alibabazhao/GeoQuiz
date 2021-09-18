@@ -11,6 +11,7 @@ import android.widget.Toast;
 public class QuizActivity extends Activity {
 
     private static final String TAG="QuizActivity";
+    private static final String KEY_INDEX="index";
 
     private Button mTrueButton;
     private Button mFalseButton;
@@ -78,6 +79,10 @@ public class QuizActivity extends Activity {
                 updateQuestion();
             }
         });
+
+        if(savedInstanceState!=null){
+            mCurrentIndex=savedInstanceState.getInt(KEY_INDEX, 0);
+        }
     }
     private void updateQuestion(){
         int question=mQuestionBank[mCurrentIndex].getQuestion();
@@ -88,6 +93,13 @@ public class QuizActivity extends Activity {
             Toast.makeText(QuizActivity.this, R.string.incorrect_toast, Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(QuizActivity.this, R.string.correct_toast, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSaveInstanceStatte");
+        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
     }
 
     @Override
