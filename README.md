@@ -14,6 +14,7 @@ The following **required** functionality is completed:
 * [X] User can **get a result messages**
 * [X] User can **see next question**
 * [X] User can **rotate the screen** and the data will be saved
+* [X] User can **cheat to get the answer**
 
 The following **optional** features are implemented:
 
