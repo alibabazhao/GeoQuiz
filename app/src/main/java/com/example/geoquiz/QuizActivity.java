@@ -1,6 +1,7 @@
 package com.example.geoquiz;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ public class QuizActivity extends Activity {
     private Button mFalseButton;
     private Button mNextButton;
     private Button mPrevButton;
+    private Button mCheatButton;
 
     private TextView mQuestionTextView;
 
@@ -77,6 +79,14 @@ public class QuizActivity extends Activity {
             public void onClick(View w){
                 mCurrentIndex=(mCurrentIndex+1)%mQuestionBank.length;
                 updateQuestion();
+            }
+        });
+        mCheatButton=(Button)findViewById(R.id.cheat_button);
+        mCheatButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View w){
+                Intent i=new Intent(QuizActivity.this, CheatActivity.class);
+                startActivity(i);
             }
         });
 
