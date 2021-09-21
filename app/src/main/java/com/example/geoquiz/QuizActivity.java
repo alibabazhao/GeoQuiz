@@ -31,6 +31,7 @@ public class QuizActivity extends Activity {
     };
 
     private int mCurrentIndex=0;
+    private boolean mIsCheater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class QuizActivity extends Activity {
             @Override
             public void onClick(View w){
                 mCurrentIndex=(mCurrentIndex-1+mQuestionBank.length)%mQuestionBank.length;
+                mIsCheater=false;
                 updateQuestion();
             }
         });
@@ -78,6 +80,7 @@ public class QuizActivity extends Activity {
             @Override
             public void onClick(View w){
                 mCurrentIndex=(mCurrentIndex+1)%mQuestionBank.length;
+                mIsCheater=false;
                 updateQuestion();
             }
         });
@@ -88,7 +91,7 @@ public class QuizActivity extends Activity {
                 Intent i=new Intent(QuizActivity.this, CheatActivity.class);
                 boolean answerIsTrue=mQuestionBank[mCurrentIndex].isTrueQuestion();
                 i.putExtra(CheatActivity.EXTRA_ANSWER_IS_TRUE, answerIsTrue);
-                startActivity(i);
+                startActivityForResult(i, 0);
             }
         });
 
@@ -101,10 +104,23 @@ public class QuizActivity extends Activity {
         mQuestionTextView.setText(question);
     }
     private void checkAnswer(boolean userPressedTrue){
-        if(userPressedTrue==mQuestionBank[mCurrentIndex].isTrueQuestion())
-            Toast.makeText(QuizActivity.this, R.string.incorrect_toast, Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(QuizActivity.this, R.string.correct_toast, Toast.LENGTH_SHORT).show();
+        boolean answerIsTrue=mQuestionBank[mCurrentIndex].isTrueQuestion();
+
+        int messageResId=0;
+
+        if(mIsCheater){
+            messageResId=R.string.judgment_toast;
+        }
+        else{
+            if(userPressedTrue==answerIsTrue){
+                messageResId=R.string.correct_toast;
+            }
+            else{
+                messageResId=R.string.incorrect_toast;
+            }
+        }
+
+        Toast.makeText(QuizActivity.this, messageResId, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -112,6 +128,14 @@ public class QuizActivity extends Activity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceStatte");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(data==null)
+            return;
+
+        mIsCheater=data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
     }
 
     @Override
