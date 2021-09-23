@@ -31,7 +31,8 @@ public class QuizActivity extends Activity {
     };
 
     private int mCurrentIndex=0;
-    private boolean mIsCheater;
+//    private boolean mIsCheater;
+    private boolean[] mIsCheater=new boolean[mQuestionBank.length];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,7 @@ public class QuizActivity extends Activity {
             @Override
             public void onClick(View w){
                 mCurrentIndex=(mCurrentIndex-1+mQuestionBank.length)%mQuestionBank.length;
-                mIsCheater=false;
+//                mIsCheater=false;
                 updateQuestion();
             }
         });
@@ -80,7 +81,7 @@ public class QuizActivity extends Activity {
             @Override
             public void onClick(View w){
                 mCurrentIndex=(mCurrentIndex+1)%mQuestionBank.length;
-                mIsCheater=false;
+//                mIsCheater=false;
                 updateQuestion();
             }
         });
@@ -108,7 +109,7 @@ public class QuizActivity extends Activity {
 
         int messageResId=0;
 
-        if(mIsCheater){
+        if(mIsCheater[mCurrentIndex]){
             messageResId=R.string.judgment_toast;
         }
         else{
@@ -135,7 +136,7 @@ public class QuizActivity extends Activity {
         if(data==null)
             return;
 
-        mIsCheater=data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
+        mIsCheater[mCurrentIndex]=data.getBooleanExtra(CheatActivity.EXTRA_ANSWER_SHOWN, false);
     }
 
     @Override
