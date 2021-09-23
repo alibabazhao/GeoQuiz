@@ -22,7 +22,9 @@ The following **optional** features are implemented:
 * [X] User can **tap the question itself to move to next question**
 
 The following **additional** features are implemented:
-
+* [ ] User should not rotate after they cheat to clear our the cheating result.
+* [ ] Once they get back, users should not rotate to clear out mIsCheater.
+* [X] User should not press NEXT until the question they cheated on comes back around. 
 
 ## Video Walkthrough
 
